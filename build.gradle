@@ -1,0 +1,22 @@
+plugins {
+    id 'java'
+}
+
+group = 'me.quickscythe'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    // https://mvnrepository.com/artifact/com.google.code.gson/gson
+    implementation group: 'com.google.code.gson', name: 'gson', version: "$gson_version"
+
+}
+
+test {
+    useJUnitPlatform()
+}
