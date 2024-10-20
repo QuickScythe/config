@@ -2,6 +2,7 @@ package me.quickscythe;
 
 
 
+import org.bukkit.plugin.java.JavaPlugin;
 import org.json.JSONObject;
 
 import java.io.FileWriter;
@@ -20,11 +21,12 @@ public class Config {
     private final java.io.File FILE;
     private final Content CONTENT;
 
-    public Config(Class<? extends Config.Content> clazz) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException, InstantiationException {
+    public Config(JavaPlugin plugin, Class<? extends Config.Content> clazz) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException, InstantiationException {
         JSONObject fileData;
         if (clazz.isAnnotationPresent(File.class)) {
             File cf = clazz.getAnnotation(File.class);
-            FILE = new java.io.File(cf.name() + "." + cf.ext());
+            if(!plugin.getDataFolder().exists()) plugin.getDataFolder().mkdir();
+            FILE = new java.io.File(plugin.getDataFolder(), cf.name() + "." + cf.ext());
             if (FILE.exists()) {
                 fileData = load(FILE);
             } else fileData = new JSONObject();
@@ -72,7 +74,7 @@ public class Config {
         try {
             CONTENT.getClass().getField(variable).set(CONTENT, value);
         } catch (IllegalAccessException | NoSuchFieldException e) {
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException("Field " + variable + " does not exist. Skipping writing to file.");
         }
     }
 
@@ -112,17 +114,11 @@ public class Config {
 
     public static class Content {
 
-        private final Field[] fields;
-
         @Value(override = true)
         public Number version = 1;
 
-        Content(){
-            fields = Arrays.stream(this.getClass().getFields()).filter(f -> f.isAnnotationPresent(Value.class)).toArray(Field[]::new);
-        }
-
         Field[] getContentValues() {
-            return fields;
+            return Arrays.stream(this.getClass().getFields()).filter(f -> f.isAnnotationPresent(Value.class)).toArray(Field[]::new);
         }
     }
 
