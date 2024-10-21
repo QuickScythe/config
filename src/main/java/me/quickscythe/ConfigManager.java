@@ -1,7 +1,5 @@
 package me.quickscythe;
 
-import org.bukkit.plugin.java.JavaPlugin;
-
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,9 +8,9 @@ public class ConfigManager {
 
     private static final Map<Class<? extends Config.Content>, Config> configs = new HashMap<>();
 
-    public static Config registerConfig(JavaPlugin mainClass, Class<? extends Config.Content> configTemplate) {
+    public static Config registerConfig(JavaMod mod, Class<? extends Config.Content> configTemplate) {
         try {
-            Config config = new Config(mainClass, configTemplate);
+            Config config = new Config(mod, configTemplate);
             configs.put(configTemplate, config);
             return config;
         } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException | InstantiationException e) {

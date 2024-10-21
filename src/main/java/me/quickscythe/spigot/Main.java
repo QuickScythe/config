@@ -1,13 +1,16 @@
 package me.quickscythe.spigot;
 
-import me.quickscythe.Config;
-import me.quickscythe.ConfigManager;
-import org.bukkit.plugin.java.JavaPlugin;
 
-public class Main extends JavaPlugin {
+import me.quickscythe.ConfigManager;
+import me.quickscythe.JavaMod;
+import net.fabricmc.api.ModInitializer;
+
+public class Main implements ModInitializer {
+
+    JavaMod mod;
 
     @Override
-    public void onEnable() {
+    public void onInitialize() {
 
     }
 }

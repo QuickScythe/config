@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "qcm",
+  "version": "${version}",
+  "name": "QuickConfigManager",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/fluxitems/icon.png",
+  "environment": "server",
+  "entrypoints": {
+    "main": [
+      "me.quickscythe.spigot.Main"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}

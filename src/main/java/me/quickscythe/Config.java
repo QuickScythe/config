@@ -1,8 +1,5 @@
 package me.quickscythe;
 
-
-
-import org.bukkit.plugin.java.JavaPlugin;
 import org.json.JSONObject;
 
 import java.io.FileWriter;
@@ -21,7 +18,7 @@ public class Config {
     private final java.io.File FILE;
     private final Content CONTENT;
 
-    public Config(JavaPlugin plugin, Class<? extends Config.Content> clazz) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException, InstantiationException {
+    public Config(JavaMod plugin, Class<? extends Config.Content> clazz) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException, InstantiationException {
         JSONObject fileData;
         if (clazz.isAnnotationPresent(File.class)) {
             File cf = clazz.getAnnotation(File.class);
